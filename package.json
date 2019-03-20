@@ -1,0 +1,22 @@
+{
+  "name": "role-assigner",
+  "version": "1.0.0",
+  "description": "An app that assigns roles randomly to team members",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NedyUdombat/Role-Assigner.git"
+  },
+  "author": "Team Zinnia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NedyUdombat/Role-Assigner/issues"
+  },
+  "homepage": "https://github.com/NedyUdombat/Role-Assigner#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
