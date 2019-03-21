@@ -2,12 +2,20 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Teams = sequelize.define('Teams', {
-    id: DataTypes.INTEGER,
-    team_name: DataTypes.STRING,
-    duration: DataTypes.DATE,
+    team_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    duration: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   }, {});
-  Teams.associate = function (models) {
-    // associations can be defined here
+  Teams.associate = (models) => {
+    Teams.hasMany(models.Members, {
+      foreignKey: 'teamsId',
+      as: 'members',
+    });
   };
   return Teams;
 };
