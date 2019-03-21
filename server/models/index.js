@@ -3,21 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import Config from '../config/config';
-<<<<<<< HEAD
-=======
-// const fs = require('fs');
-// const path = require('path');
-// const Sequelize = require('sequelize');
->>>>>>> 6521e1fad0dcdf19a08ce84fb0b9ef846d5f9ceb
 
 
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-<<<<<<< HEAD
-
-=======
-// const config = require(`${__dirname}/../config/config.js`)[env];
->>>>>>> 6521e1fad0dcdf19a08ce84fb0b9ef846d5f9ceb
 
 const config = Config[env];
 const db = {};
