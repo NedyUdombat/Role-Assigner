@@ -9,9 +9,6 @@ module.exports = {
     database: process.env.DEV_DB_NAME,
     host: process.env.DEV_DB_HOSTNAME,
     dialect: 'postgres',
-    define: {
-      timestamps: true,
-    },
   },
   test: {
     username: process.env.CI_DB_USERNAME,
@@ -19,9 +16,6 @@ module.exports = {
     database: process.env.CI_DB_NAME,
     host: '127.0.0.1',
     dialect: 'postgres',
-    define: {
-      timestamps: true,
-    },
   },
   production: {
     username: process.env.PROD_DB_USERNAME,
@@ -29,8 +23,5 @@ module.exports = {
     database: process.env.PROD_DB_NAME,
     host: process.env.PROD_DB_HOSTNAME,
     dialect: 'postgres',
-    define: {
-      timestamps: true,
-    },
   },
 };
