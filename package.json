@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node dist/app.js",
-    "test": "mocha --require babel-core/register server/test --exit",
+    "watch": "nodemon --exec babel-node --presets babel-preset-env ./server/app.js",
+    "test": "mocha server/test/**/*test.js --require babel-register --exit",
     "build": "rm -rf dist && babel server -d dist --presets=env",
     "migrate": "sequelize model:create",
     "babel-node": "babel-core/register --presets=env"
@@ -21,6 +22,8 @@
   },
   "homepage": "https://github.com/NedyUdombat/Role-Assigner#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "pg": "^7.9.0",
@@ -37,6 +40,7 @@
     "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "mocha": "^6.0.2"
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10"
   }
 }
