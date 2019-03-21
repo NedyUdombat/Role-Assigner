@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.com/NedyUdombat/Role-Assigner.svg?branch=develop)](https://travis-ci.com/NedyUdombat/Role-Assigner)
-
 [![Coverage Status](https://coveralls.io/repos/github/NedyUdombat/Role-Assigner/badge.svg?branch=develop)](https://coveralls.io/github/NedyUdombat/Role-Assigner?branch=develop)
 
 # Role-Assigner - A platform that randomly assign roles to members of a given team.
