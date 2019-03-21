@@ -9,3 +9,9 @@ services:
   - postgresql
 
 scripts: npm run test
+
+script:
+  - nyc --reporter=lcov npm run test
+
+after_script:
+  - npm run coverage
