@@ -87,11 +87,11 @@ POST Request -> **/api/v1/auth/signup
 POST Request -> **/api/v1/auth/login
 
 ##TEAM
-POST Request -> **/api/v1/team-members = add a list of team members
-GET Request ->  **/api/v1/team-members = get the list of all team members
+POST Request -> **/api/v1/team/members = add a list of team members
+GET Request ->  **/api/v1/team/members = get the list of all team members
 
 ##ROLE ASSIGNER
-POST Request ->  **/api/v1/team-lead = generates a list  of team lead to lead for per specified duration for a certain period of time
-POST Request ->  **/api/v1/qa = generates a list of 2 qa's to work per specified duration for a certain period of time.
+POST Request ->  **/api/v1/team/lead = generates a list  of team lead to lead for per specified duration for a certain period of time
+POST Request ->  **/api/v1/team/qa = generates a list of 2 qa's to work per specified duration for a certain period of time.
 
 ```
