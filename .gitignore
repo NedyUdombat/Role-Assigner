@@ -1,7 +1,5 @@
 node_modules/
 .env
 .nyc_output/
-dist
+dist/
 .coveralls.yml
-
-
