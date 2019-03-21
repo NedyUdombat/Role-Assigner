@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const path = require('path');
+=======
+import path from 'path';
+>>>>>>> 6521e1fad0dcdf19a08ce84fb0b9ef846d5f9ceb
 
 module.exports = {
   "config": path.resolve('./server/config', 'config.js'),
