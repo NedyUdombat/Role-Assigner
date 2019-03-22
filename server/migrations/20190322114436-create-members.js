@@ -1,42 +1,47 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Members', {
+    return queryInterface.createTable('members', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
-      },
       name: {
         type: Sequelize.STRING
       },
       current_team_lead: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       past_team_lead: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       current_qa: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       past_qa: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Members');
+    return queryInterface.dropTable('members');
   }
 };
