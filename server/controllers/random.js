@@ -10,6 +10,12 @@ class Randomizer {
   static teamLead(req, res) {
     getAll()
       .then((response) => {
+        // if (response.rowCount === 0 ) {
+        //   pool.query('UPDATE members SET past_tl = false')
+        //   .then()
+        //   .catch()
+        // }
+        console.log(response.rowCount);
         // console.log(response.rows);
         response.rows.forEach((name) => {
           eligibleTL.push(name);

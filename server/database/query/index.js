@@ -16,6 +16,22 @@ class Members {
         .catch(error => reject(error));
     });
   }
+
+  static getCurrentTl() {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT * FROM members where current_tl = true')
+        .then(results => resolve(results))
+        .catch(error => reject(error));
+    });
+  }
+
+  static getCurrentQas() {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT * FROM members where current_qa = true')
+        .then(results => resolve(results))
+        .catch(error => reject(error));
+    });
+  }
 }
 
 export default Members;
