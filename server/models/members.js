@@ -1,5 +1,4 @@
 
-
 module.exports = (sequelize, DataTypes) => {
   const Members = sequelize.define('Members', {
     name: {
@@ -28,10 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Members.associate = (models) => {
-    Members.belongsTo(models.Teams, {
-      foreignKey: 'teamsId',
-      onDelete: 'CASCADE',
-    });
+
   };
   return Members;
 };

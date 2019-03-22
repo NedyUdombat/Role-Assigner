@@ -10,7 +10,8 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "rm -rf dist && babel server -d dist --presets=env",
     "migrate": "sequelize model:create",
-    "babel-node": "babel-core/register --presets=env"
+    "babel-node": "babel-core/register --presets=env",
+    "query": "babel-node server/database/query.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "cron": "^1.7.0",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "pg": "^7.9.0",
