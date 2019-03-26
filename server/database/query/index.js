@@ -1,9 +1,9 @@
 import pool from '../dbConfig';
 
 class Members {
-  static getAll() {
+  static getTl() {
     return new Promise((resolve, reject) => {
-      pool.query('SELECT * FROM members where past_tl = false')
+      pool.query('SELECT * FROM members where past_tl = false AND current_tl = false')
         .then(results => resolve(results))
         .catch(error => reject(error));
     });
@@ -28,6 +28,14 @@ class Members {
   static getCurrentQas() {
     return new Promise((resolve, reject) => {
       pool.query('SELECT * FROM members where current_qa = true')
+        .then(results => resolve(results))
+        .catch(error => reject(error));
+    });
+  }
+
+  static getAllTms() {
+    return new Promise((resolve, reject) => {
+      pool.query('SELECT * FROM members')
         .then(results => resolve(results))
         .catch(error => reject(error));
     });

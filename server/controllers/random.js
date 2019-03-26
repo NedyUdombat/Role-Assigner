@@ -1,56 +1,48 @@
 import Members from '../database/query/index';
 import pool from '../database/dbConfig';
 
-const { getAll, getQas } = Members;
-let teamLead;
-let newQaArray = [];
-const eligibleTL = [];
-const eligibleQas = [];
+const { getTl, getQas } = Members;
+
+const randomizer = (res) => {
+  const phase1TM = res.rows;
+  const teamLead = phase1TM[Math.floor(Math.random() * phase1TM.length)];
+  pool.query('UPDATE members SET current_tl = false, past_tl = true where current_tl = true')
+    .then(() => {
+      pool.query(`UPDATE members SET current_tl = true WHERE id = ${teamLead.id}  returning *`)
+        .then();
+    });
+};
+
 class Randomizer {
-  static teamLead(req, res) {
-    getAll()
-      .then((response) => {
-        // if (response.rowCount === 0 ) {
-        //   pool.query('UPDATE members SET past_tl = false')
-        //   .then()
-        //   .catch()
-        // }
-        console.log(response.rowCount);
-        // console.log(response.rows);
-        response.rows.forEach((name) => {
-          eligibleTL.push(name);
-        });
-        const newELigibleTLs = eligibleTL.filter(member => member.current_tl !== true);
-        // for (let i = 0; i < 1; i += 1) {
-        teamLead = newELigibleTLs[Math.floor(Math.random() * newELigibleTLs.length)];
-        pool.query('UPDATE members SET current_tl = false, past_tl = true where current_tl = true')
-          .then(() => {
-            pool.query(`UPDATE members SET current_tl = true WHERE id = ${teamLead.id} returning *`)
-              .then(results => console.log(results.rows[0]))
-              .catch(err => console.log(err));
-          });
-        // }
-        getQas()
-          .then((qas) => {
-            qas.rows.forEach((name) => {
-              eligibleQas.push(name);
+  static teamLead() {
+    getTl()
+      .then((res) => {
+        if (res.rowCount <= 1) {
+          pool.query('UPDATE members SET past_tl = false WHERE past_tl = true returning *')
+            .then((results) => {
+              randomizer(results);
             });
-            // console.log(`${eligibleQas}`);
-            const newELigibleQas = eligibleQas.filter(member => member.current_tl !== true);
+        } else {
+          randomizer(res);
+        }
+      });
+  }
+
+  static qa() {
+    getQas()
+      .then((res) => {
+        const phase1QA = res.rows;
+        const qaArray = [];
+        pool.query('UPDATE members SET current_qa = false, past_qa = true where current_qa = true')
+          .then(() => {
             for (let i = 0; i < 2; i += 1) {
-              let qA = newELigibleQas[Math.floor(Math.random() * newELigibleQas.length)];
-              let elementPosition = newELigibleQas.indexOf(qA);
-              newELigibleQas.splice(elementPosition, 1);
-              newQaArray.push(qA);
+              const qa = phase1QA[Math.floor(Math.random() * phase1QA.length)];
+              const elementPosition = phase1QA.indexOf(qa);
+              phase1QA.splice(elementPosition, 1);
+              qaArray.push(qa);
+              pool.query(`UPDATE members SET current_qa = true WHERE id = ${qa.id} returning *`)
+                .then();
             }
-            newQaArray.forEach((qa) => {
-              pool.query('UPDATE members SET current_qa = false, past_qa = true where current_qa = true')
-                .then(() => {
-                  pool.query(`UPDATE members SET current_qa = true WHERE id = ${qa.id} returning *`)
-                    .then(results => console.log(results.rows[0]))
-                    .catch(err => console.log(err));
-                });
-            })
           });
       });
   }
