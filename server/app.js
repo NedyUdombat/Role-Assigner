@@ -12,7 +12,7 @@ const { teamLead } = Randomizer;
 const { CronJob } = cron;
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -30,12 +30,13 @@ app.all('*', (req, res) => res.status(404).json({
 }));
 
 let x = 0;
-const runner = () => new CronJob('* * * * * *', () => {
+const runner = () => new CronJob('00 00 * * 5', () => {
   // console.log(x);
-  // teamLead();
+  teamLead();
   // x += 1;
 }, null, true, 'Africa/Lagos');
 
+console.log('After job instantiation');
 runner();
 // runner.stop();
 
