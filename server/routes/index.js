@@ -3,8 +3,8 @@ import Randomizer from '../controllers/random';
 import Get from '../controllers/get';
 
 // destructure all controllers here if any.
-const { teamLead } = Randomizer;
-const { getTl, getQa } = Get;
+const { teamLead, qa } = Randomizer;
+const { getTl, getQa, getAllTms } = Get;
 
 // destructure all middlewares(validators) here if any.
 const router = Router();
@@ -15,7 +15,9 @@ router.get('/', (req, res) => {
 });
 router.get('/team-lead', getTl);
 router.get('/qa', getQa);
+router.get('/all', getAllTms);
 router.post('/generate', teamLead);
+router.post('/generate2', qa);
 
 
 export default router;

@@ -1,7 +1,7 @@
 import Members from '../database/query/index';
 // import pool from '../database/dbConfig';
 
-const { getCurrentTl, getCurrentQas } = Members;
+const { getCurrentTl, getCurrentQas, getAllTms } = Members;
 
 class Get {
   static getTl(req, res) {
@@ -18,6 +18,12 @@ class Get {
           uq,
         });
       })
+      .catch(err => res.json({ err }));
+  }
+
+  static getAllTms(req, res) {
+    getAllTms()
+      .then(response => res.json({ response: response.rows }))
       .catch(err => res.json({ err }));
   }
 }
