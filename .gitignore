@@ -5,3 +5,4 @@ dist/
 .coveralls.yml
 /server/.DS_Store
 .idea/
+coverage/

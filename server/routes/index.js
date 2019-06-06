@@ -1,23 +1,12 @@
 import { Router } from 'express';
-import Randomizer from '../controllers/random';
-import Get from '../controllers/get';
 
-// destructure all controllers here if any.
-const { teamLead, qa } = Randomizer;
-const { getTl, getQa, getAllTms } = Get;
+import { randomizer } from '../controllers/random';
 
 // destructure all middlewares(validators) here if any.
+
 const router = Router();
 
 // general route
-router.get('/', (req, res) => {
-  res.json({ message: 'Hi there! Welcome to version 1 of Role Assigner API!' });
-});
-router.get('/team-lead', getTl);
-router.get('/qa', getQa);
-router.get('/all', getAllTms);
-router.post('/generate', teamLead);
-router.post('/generate2', qa);
-
+router.get('/random', randomizer);
 
 export default router;

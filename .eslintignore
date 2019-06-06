@@ -1,0 +1,4 @@
+.sequelizerc
+app.json
+.babelrc
+/doc
