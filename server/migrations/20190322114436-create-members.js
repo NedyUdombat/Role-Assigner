@@ -1,15 +1,14 @@
-'use strict';
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('members', {
+export default {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('Members', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       current_team_lead: {
         type: Sequelize.BOOLEAN,
@@ -33,15 +32,12 @@ module.exports = {
       },
       createdAt: {
         allowNull: true,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: true,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('members');
-  }
+        type: Sequelize.DATE,
+      },
+    }),
+  down: queryInterface => queryInterface.dropTable('Members'),
 };

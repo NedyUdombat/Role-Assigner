@@ -1,6 +1,5 @@
-
-module.exports = (sequelize, DataTypes) => {
-  const Members = sequelize.define('Members', {
+export default (sequelize, DataTypes) => {
+  const Member = sequelize.define('Members', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -25,9 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: false,
     },
-  }, {});
-  Members.associate = (models) => {
-
-  };
-  return Members;
+  });
+  return Member;
 };

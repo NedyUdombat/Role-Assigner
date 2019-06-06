@@ -1,28 +1,30 @@
+# Role-Assigner - A platform that randomly assign roles to members of a given team.
+
 [![Build Status](https://travis-ci.com/NedyUdombat/Role-Assigner.svg?branch=develop)](https://travis-ci.com/NedyUdombat/Role-Assigner)
 [![Coverage Status](https://coveralls.io/repos/github/NedyUdombat/Role-Assigner/badge.svg?branch=develop)](https://coveralls.io/github/NedyUdombat/Role-Assigner?branch=develop)
-
-# Role-Assigner - A platform that randomly assign roles to members of a given team.
-=======
+[![Maintainability](https://api.codeclimate.com/v1/badges/8802540ba9799ce15cd2/maintainability)](https://codeclimate.com/github/NedyUdombat/Role-Assigner/maintainability)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 ## Vision
+
 Create a platform where teams can use to rotate their team leaders and quality Assurance personnels given a specific time.
 
 ---
 
-
 ## API Versioning
+
 The API Versioning will follow this format:
 
-```
-`https://**/api/v1/**` - for version 1 of the api.
-`https://**/api/v2/**` - for version 2 of the api.
+```source-json
+https://**/api/v1/** - for version 1 of the api.
+https://**/api/v2/** - for version 2 of the api.
 ```
 
 ## API Spec
+
 The preferred JSON object to be returned by the API should be structured as follows:
 
-
-### Registration:
+### Registration
 
 `POST /api/v1/signup`
 
@@ -38,10 +40,9 @@ Example response body:
 }
 ```
 
-Endpoints:
-----------
+## Endpoints
 
-### Registration:
+#### Registration
 
 `POST /api/v1/auth/signup`
 
@@ -61,9 +62,7 @@ No authentication required, creates an account for the user
 
 Required fields: `email`, `username`, `password`
 
-
-
-### Authentication:
+#### Authentication
 
 `POST /api/v1/auth/login`
 
@@ -84,7 +83,7 @@ Required fields: `email`, `password`
 
 ### ALL ENDPOINTS
 
-```
+```Javascript
 ##AUTHENTICATION
 POST Request -> **/api/v1/auth/signup
 POST Request -> **/api/v1/auth/login
