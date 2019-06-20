@@ -7,8 +7,13 @@ export default {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      fullName: {
         type: Sequelize.STRING,
+        field: 'full_name',
+      },
+      teamId: {
+        type: Sequelize.INTEGER,
+        field: 'team_id',
       },
       current_team_lead: {
         type: Sequelize.BOOLEAN,
@@ -20,23 +25,15 @@ export default {
         allowNull: false,
         defaultValue: false,
       },
-      current_qa: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      past_qa: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
       createdAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
     }),
   down: queryInterface => queryInterface.dropTable('Members'),

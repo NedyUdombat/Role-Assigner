@@ -11,9 +11,9 @@
       "doc",
       "coverage",
       "server/config",
-      "server/migrations",
-      "server/models",
-      "server/seeders",
+      "server/db/migrations",
+      "server/db/models",
+      "server/db/seeders",
       "server/tests"
     ],
     "reporter": [
@@ -22,7 +22,7 @@
     ],
     "sourceMap": false,
     "instrument": true,
-    "all": true
+    "all": false
   },
   "husky": {
     "hooks": {
@@ -43,13 +43,16 @@
     "start": "node dist/app.js",
     "watch": "NODE_ENV=development nodemon --exec babel-node server/app.js",
     "test": "NODE_ENV=test nyc mocha --recursive server/tests --require @babel/register --exit",
-    "pretest": "NODE_ENV=test npm run lint && npm run prettier",
+    "test:watch": "NODE_ENV=test mocha  --recursive server/tests --require @babel/register --watch",
+    "pretest": "NODE_ENV=test npm run lint && npm run prettier && NODE_ENV=test npm run migrate:seed:test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "build": "rm -rf build && babel src -d dist",
     "check-staged": "lint-staged",
     "prettier": "prettier --write '**/*.{js,jsx}'",
-    "lint": "node_modules/eslint/bin/eslint.js server --fix"
+    "lint": "node_modules/eslint/bin/eslint.js server --fix",
+    "migrate:seed": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:undo:all && sequelize db:seed:all",
+    "migrate:seed:test": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:undo:all && sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -62,11 +65,14 @@
   },
   "homepage": "https://github.com/NedyUdombat/Role-Assigner#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "cron": "^1.7.0",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^5.8.7",

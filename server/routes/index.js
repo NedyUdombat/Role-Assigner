@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
-import { randomizer } from '../controllers/random';
+import authRouter from './routes/auth';
 
 // destructure all middlewares(validators) here if any.
 
 const router = Router();
 
 // general route
-router.get('/random', randomizer);
+router.use('/auth', authRouter);
 
 export default router;

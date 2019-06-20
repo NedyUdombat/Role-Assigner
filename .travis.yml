@@ -8,6 +8,9 @@ install:
 services:
   - postgresql
 
+before_script:
+  - psql -c 'create database role_assigner;'
+
 scripts: npm run test
 
 script:
