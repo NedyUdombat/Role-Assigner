@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { validateNewUser } from '../middlewares/validate-input';
-import { register } from '../controllers/auth';
+import { register, login } from '../controllers/auth';
 import { duplicateUserValidation } from '../middlewares/auth';
 
 const authRouter = Router();
@@ -12,5 +12,7 @@ authRouter.post(
   duplicateUserValidation,
   register,
 );
+
+authRouter.post('/login', login);
 
 export default authRouter;
