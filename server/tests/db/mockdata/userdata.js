@@ -26,6 +26,12 @@ export const userWithExistingEmail = {
   password: 'hhrtuyhgty5t678',
 };
 
+export const wrongLoginEmail = {
+  username: 'janesmithly',
+  email: 'roleassignr@zinnia.com',
+  password: 'hhrtuyhgty5t678',
+};
+
 export const userWithExistingUserName = {
   username: 'assigner',
   email: 'jsmith@gm.com',

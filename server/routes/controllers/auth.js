@@ -2,6 +2,8 @@ import {
   generateToken,
   successResponse,
   serverError,
+  comparePassword,
+  excludeProperty,
 } from '../../utils/helpers';
 import models from '../../db/models';
 
@@ -31,6 +33,42 @@ export const register = async (req, res) => {
       },
     );
   } catch (err) {
+    return serverError(res);
+  }
+};
+
+/**
+ * Create A User
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} user object
+ */
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (!user || user === null) {
+      return errorResponse(res, 404, 'Not found');
+    }
+    if (!comparePassword(user.password, password)) {
+      return errorResponse(res, 400, 'Incorrect Password');
+    }
+    const token = await generateToken({
+      id: user.id,
+      email,
+    });
+
+    const userJSON = user.toJSON();
+    const authenticatedUser = excludeProperty(userJSON, ['password']);
+    return successResponse(res, 200, 'You have been logged in successfully', {
+      authenticatedUser,
+      token,
+    });
+  } catch (error) {
     return serverError(res);
   }
 };

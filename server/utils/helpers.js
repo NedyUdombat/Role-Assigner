@@ -109,3 +109,32 @@ export const checkDuplicateUser = async (email, username) => {
   });
   return existingUser;
 };
+
+/**
+ *
+ *
+ * @param {object} obj
+ * @param {array} keys
+ * @returns {object} filteredObject
+ */
+export function pick(obj, keys) {
+  return keys
+    .map(key => (key in obj ? { [key]: obj[key] } : {}))
+    .reduce(
+      (finalObject, arrayOfObjects) =>
+        Object.assign(finalObject, arrayOfObjects),
+      {},
+    );
+}
+
+/**
+ *
+ *
+ * @param {object} obj
+ * @param {array} keys
+ * @returns {object} filteredObject
+ */
+export function excludeProperty(obj, keys) {
+  const filteredKeys = Object.keys(obj).filter(key => !keys.includes(key));
+  return pick(obj, filteredKeys);
+}
