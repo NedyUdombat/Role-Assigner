@@ -4,7 +4,7 @@ import { Op } from 'sequelize';
 
 import models from '../db/models';
 
-const { User } = models;
+const { User, Team } = models;
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -95,7 +95,7 @@ export const serverError = (res, statusCode = 500) =>
  * @returns {Boolean} false if record does not exist
  */
 export const checkDuplicateUser = async (email, username) => {
-  const existingUser = await User.findOne({
+  return await User.findOne({
     where: {
       [Op.or]: [
         {
@@ -107,7 +107,19 @@ export const checkDuplicateUser = async (email, username) => {
       ],
     },
   });
-  return existingUser;
+};
+
+/**
+ * Check Team duplication
+ *
+ * @param {String} name
+ * @returns {Boolean} true if record exists
+ * @returns {Boolean} false if record does not exist
+ */
+export const checkDuplicateTeam = async name => {
+  return await Team.findOne({
+    where: { name },
+  });
 };
 
 /**
@@ -138,3 +150,17 @@ export function excludeProperty(obj, keys) {
   const filteredKeys = Object.keys(obj).filter(key => !keys.includes(key));
   return pick(obj, filteredKeys);
 }
+
+/**
+ *
+ * @param {string} token
+ * @returns {object/null} decoded tokens
+ */
+export const verifyToken = async token => {
+  return await jwt.verify(token, SECRET_KEY, (err, data) => {
+    if (err) {
+      return null;
+    }
+    return data;
+  });
+};
