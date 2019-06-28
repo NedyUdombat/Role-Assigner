@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { create } from '../controllers/team';
+import { create, getTeam } from '../controllers/team';
 import { checkAuthorizedUser } from '../middlewares/authorized-user';
 import { duplicateTeamValidation } from '../middlewares/team';
 
@@ -12,5 +12,7 @@ teamRouter.post(
   duplicateTeamValidation,
   create,
 );
+
+teamRouter.get('/:id', getTeam);
 
 export default teamRouter;

@@ -1,4 +1,8 @@
-import { errorResponse, checkDuplicateTeam } from '../../utils/helpers';
+import {
+  errorResponse,
+  checkDuplicateTeam,
+  getTeamById,
+} from '../../utils/helpers';
 
 export const duplicateTeamValidation = async (req, res, next) => {
   const { name } = req.body;
@@ -12,5 +16,12 @@ export const duplicateTeamValidation = async (req, res, next) => {
       );
     }
   }
+  return next();
+};
+
+export const checkTeamExistence = async (req, res, next) => {
+  const { id } = req.params;
+  req.team = await getTeamById(id);
+  if (!req.team) return errorResponse(res, 404, 'Team not found');
   return next();
 };

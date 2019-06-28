@@ -4,7 +4,7 @@ import { Op } from 'sequelize';
 
 import models from '../db/models';
 
-const { User, Team } = models;
+const { User, Team, Member } = models;
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -19,6 +19,49 @@ const SECRET_KEY = process.env.SECRET_KEY;
 export const hashPassword = async (password, salt = 10) => {
   const hash = await bcrypt.hash(password, salt);
   return hash;
+};
+
+/**
+ * Get Full Team
+ *
+ * @param {String} id
+ * @returns {Boolean} true if id exists
+ * @returns {Boolean} false if id does not exist
+ */
+export const getFullTeamDetails = async id => {
+  return await Team.findOne({
+    where: { id },
+    attributes: { exclude: ['createdAt', 'updatedAt'] },
+    include: [
+      {
+        model: Member,
+        as: 'members',
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+      },
+    ],
+  });
+};
+
+/**
+ * Get Full Team
+ *
+ * @param {String} id
+ * @returns {Boolean} true if id exists
+ * @returns {Boolean} false if id does not exist
+ */
+export const getEligibleTeamMembers = async id => {
+  return await Team.findOne({
+    where: { id },
+    attributes: { exclude: ['createdAt', 'updatedAt'] },
+    include: [
+      {
+        model: Member,
+        where: { current_team_lead: false, past_team_lead: false },
+        as: 'members',
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+      },
+    ],
+  });
 };
 
 /**
@@ -42,6 +85,17 @@ export const comparePassword = async (hashedPassword, password) =>
  */
 export const generateToken = async (payload, expiresIn = '30days') =>
   jwt.sign(payload, SECRET_KEY, { expiresIn });
+
+/**
+ * Check Team existence
+ *
+ * @param {String} id
+ * @returns {Boolean} true if id exists
+ * @returns {Boolean} false if id does not exist
+ */
+export const getTeamById = async id => {
+  return await Team.findByPk(id);
+};
 
 /**
  *
