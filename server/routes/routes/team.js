@@ -2,7 +2,10 @@ import { Router } from 'express';
 
 import { create, getTeam } from '../controllers/team';
 import { checkAuthorizedUser } from '../middlewares/authorized-user';
-import { duplicateTeamValidation } from '../middlewares/team';
+import {
+  duplicateTeamValidation,
+  checkTeamExistence,
+} from '../middlewares/team';
 
 const teamRouter = Router();
 
@@ -13,6 +16,6 @@ teamRouter.post(
   create,
 );
 
-teamRouter.get('/:id', getTeam);
+teamRouter.get('/:id', checkAuthorizedUser, checkTeamExistence, getTeam);
 
 export default teamRouter;

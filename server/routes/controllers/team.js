@@ -29,22 +29,17 @@ export const create = async (req, res) => {
 };
 
 export const getTeam = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const team = await Team.findOne({
-      where: { id },
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
-      include: [
-        {
-          model: Member,
-          as: 'members',
-          attributes: { exclude: ['createdAt', 'updatedAt'] },
-        },
-      ],
-    });
-    if (!team) return errorResponse(res, 404, 'Team not found');
-    return successResponse(res, 200, 'Team successfully retrieved', team);
-  } catch (error) {
-    return serverError(res);
-  }
+  const { id } = req.params;
+  const team = await Team.findOne({
+    where: { id },
+    attributes: { exclude: ['createdAt', 'updatedAt'] },
+    include: [
+      {
+        model: Member,
+        as: 'members',
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+      },
+    ],
+  });
+  return successResponse(res, 200, 'Team successfully retrieved', team);
 };

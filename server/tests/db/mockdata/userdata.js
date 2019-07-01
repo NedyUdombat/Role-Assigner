@@ -70,8 +70,47 @@ export const signupCredentials = {
   username: 'flowergarden',
 };
 
+export const signupCredentialsWithoutEmail = {
+  password: '16goingOn17',
+  username: 'flowergarden',
+};
+
+export const loginDetails = {
+  id: '112345678',
+  email: 'roleassigner@zinnia.com',
+  password: 'theadmin',
+};
+
+export const loginDetailsWithWrongEmail = {
+  email: 'roleassier@zinnia.com',
+  password: 'theadmin',
+};
+
+export const loginDetailsWithWrongPassword = {
+  email: 'roleassigner@zinnia.com',
+  password: 'tadmin',
+};
+
+export const loginDetailsWithoutEmail = {
+  password: 'theadmin',
+};
+
+export const loginDetailsWithoutPassword = {
+  email: 'roleassigner@zinnia.com',
+};
+
 export const signupCredentialsWithShortUsername = {
   email: 'roses@gmail.com',
   password: '16goingOn17',
   username: 'fl',
+};
+
+export const team = {
+  name: 'zinnia',
+  members: [{ fullName: 'nedy udombat' }, { fullName: 'simi sola' }],
+};
+
+export const invalidTeamDatatype = {
+  name: 'zinniah',
+  members: { fullName: 'nedy udombat', fullName: 'simi sola' },
 };
