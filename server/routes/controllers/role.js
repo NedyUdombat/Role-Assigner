@@ -7,7 +7,7 @@ import {
 } from '../../utils/helpers';
 import models from '../../db/models';
 
-const { Team, Member } = models;
+const { Member } = models;
 
 export const getTeamLead = async (req, res) => {
   try {
@@ -41,10 +41,25 @@ export const getTeamLead = async (req, res) => {
         current_team_lead: true,
       },
       { where: { id: teamLead.id } },
-      { returning: true },
     );
     return successResponse(res, 200, 'TeamLead successfully retrieved', {
       teamLead,
+    });
+  } catch (error) {
+    return serverError(res);
+  }
+};
+
+export const resetRoles = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const reset = await Member.update(
+      { current_team_lead: false, past_team_lead: false },
+      { where: { teamId: id } },
+      { returning: true },
+    );
+    return successResponse(res, 200, 'Team successfully reset', {
+      reset,
     });
   } catch (error) {
     return serverError(res);
