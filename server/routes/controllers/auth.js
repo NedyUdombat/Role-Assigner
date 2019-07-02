@@ -4,6 +4,7 @@ import {
   serverError,
   comparePassword,
   excludeProperty,
+  errorResponse,
 } from '../../utils/helpers';
 import models from '../../db/models';
 
@@ -51,10 +52,15 @@ export const login = async (req, res) => {
         email,
       },
     });
-    if (!user || user === null) {
-      return errorResponse(res, 404, 'Not found');
+    if (user === null) {
+      return errorResponse(
+        res,
+        404,
+        'This User does not exist please try registering',
+      );
     }
-    if (!comparePassword(user.password, password)) {
+    const validPassword = await comparePassword(user.password, password);
+    if (!validPassword) {
       return errorResponse(res, 400, 'Incorrect Password');
     }
     const token = await generateToken({

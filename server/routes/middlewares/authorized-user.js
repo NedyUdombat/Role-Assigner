@@ -28,6 +28,7 @@ export async function checkAuthorizedUser(req, res, next) {
         'Token is invalid, please provide a valid token',
       );
     }
+
     next();
   } catch (error) {
     return errorResponse(res, 400, error.message);

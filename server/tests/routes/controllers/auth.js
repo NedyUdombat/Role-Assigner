@@ -5,8 +5,13 @@ import app from '../../../app';
 import {
   signupCredentials,
   signupCredentialsWithShortUsername,
+  signupCredentialsWithoutEmail,
   userWithExistingEmail,
-  wrongLoginEmail,
+  loginDetails,
+  loginDetailsWithWrongEmail,
+  loginDetailsWithWrongPassword,
+  loginDetailsWithoutEmail,
+  loginDetailsWithoutPassword,
 } from '../../db/mockdata/userdata';
 
 // configure chai to use expect
@@ -81,13 +86,12 @@ describe('User registration', () => {
 });
 
 describe('User Authentication', () => {
-  let userToken;
-  context('Authenticate a User a user', () => {
+  context('Authentication Sccess', () => {
     it('should authenticate a user successfully when valid input are supplied', async () => {
       const res = await chai
         .request(app)
         .post(loginUrl)
-        .send(signupCredentials);
+        .send(loginDetails);
       expect(res.status).to.equal(200);
       expect(res.body)
         .to.have.property('message')
@@ -98,6 +102,74 @@ describe('User Authentication', () => {
       expect(res.body.message).to.eql('You have been logged in successfully');
       expect(res.body.data).to.have.all.keys('token', 'authenticatedUser');
       expect(res.body.data.token).to.not.eql('');
+    });
+  });
+
+  context('Authenticate Failure', () => {
+    it('should fail to authenticate a user when email is wrong', async () => {
+      const res = await chai
+        .request(app)
+        .post(loginUrl)
+        .send(loginDetailsWithWrongEmail);
+      expect(res.status).to.equal(404);
+      expect(res.body)
+        .to.have.property('message')
+        .to.be.a('String');
+      expect(res.body)
+        .to.have.property('status')
+        .to.eql('error');
+      expect(res.body.message).to.eql(
+        'This User does not exist please try registering',
+      );
+    });
+
+    it('should fail to authenticate a user when password is wrong', async () => {
+      const res = await chai
+        .request(app)
+        .post(loginUrl)
+        .send(loginDetailsWithWrongPassword);
+      expect(res.status).to.equal(400);
+      expect(res.body)
+        .to.have.property('message')
+        .to.be.a('String');
+      expect(res.body)
+        .to.have.property('status')
+        .to.eql('error');
+      expect(res.body.message).to.eql('Incorrect Password');
+    });
+
+    it('should fail to authenticate a user when email is not provided', async () => {
+      const res = await chai
+        .request(app)
+        .post(loginUrl)
+        .send(loginDetailsWithoutEmail);
+      expect(res.status).to.equal(500);
+      expect(res.body)
+        .to.have.property('message')
+        .to.be.a('String');
+      expect(res.body)
+        .to.have.property('status')
+        .to.eql('error');
+      expect(res.body.message).to.eql(
+        'Your request could not be processed at this time. Kindly try again later.',
+      );
+    });
+
+    it('should fail to authenticate a user when password is not provided', async () => {
+      const res = await chai
+        .request(app)
+        .post(loginUrl)
+        .send(loginDetailsWithoutPassword);
+      expect(res.status).to.equal(500);
+      expect(res.body)
+        .to.have.property('message')
+        .to.be.a('String');
+      expect(res.body)
+        .to.have.property('status')
+        .to.eql('error');
+      expect(res.body.message).to.eql(
+        'Your request could not be processed at this time. Kindly try again later.',
+      );
     });
   });
 });
