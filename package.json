@@ -47,7 +47,7 @@
     "pretest": "NODE_ENV=test npm run lint && npm run prettier && NODE_ENV=test npm run migrate:seed:test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "cat coverage/lcov.info | coveralls",
-    "build": "rm -rf build && babel src -d dist",
+    "build": "rm -rf build && babel server -d dist",
     "check-staged": "lint-staged",
     "prettier": "prettier --write '**/*.{js,jsx}'",
     "lint": "node_modules/eslint/bin/eslint.js server --fix",
