@@ -1,13 +1,24 @@
-import validator from '../../utils/validator.utils';
+import Joi from 'joi';
+
 import { userSchema } from '../../utils/validation-schema.utils';
+import { errorResponse } from '../../utils/helpers';
 
 /**
- * Input validator for a new user account
- * @param {Object} req - request body
- * @param {Object} res - response object
- * @param {Object} next - pass control to the next handler
- * @returns {Object} Validator helper function
+ * Input validator for a request body
+ * @param {Object} schema Joi schema of ther request body to validation
+ * @returns {Object} error response
  */
-export const validateNewUser = (req, res, next) => {
-  validator(req.body, userSchema, res, next);
+export const validateReqBody = schema => (req, res, next) => {
+  const { error } = Joi.validate(req.body, schema, {
+    abortEarly: false,
+    language: {
+      key: '{{key}} ',
+    },
+  });
+
+  if (error) {
+    const validationError = error.details.map(errorItem => errorItem.message);
+    return errorResponse(res, 422, 'validation error', validationError);
+  }
+  next();
 };
