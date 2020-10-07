@@ -143,16 +143,16 @@ describe('User Authentication', () => {
         .request(app)
         .post(loginUrl)
         .send(loginDetailsWithoutEmail);
-      expect(res.status).to.equal(500);
-      expect(res.body)
+      const { status, body } = res;
+      expect(status).to.equal(422);
+      expect(body)
         .to.have.property('message')
         .to.be.a('String');
-      expect(res.body)
+      expect(body)
         .to.have.property('status')
         .to.eql('error');
-      expect(res.body.message).to.eql(
-        'Your request could not be processed at this time. Kindly try again later.',
-      );
+      expect(body.message).to.eql('validation error');
+      expect(body.errors[0]).to.contain('email');
     });
 
     it('should fail to authenticate a user when password is not provided', async () => {
@@ -160,16 +160,16 @@ describe('User Authentication', () => {
         .request(app)
         .post(loginUrl)
         .send(loginDetailsWithoutPassword);
-      expect(res.status).to.equal(500);
-      expect(res.body)
+      const { status, body } = res;
+      expect(status).to.equal(422);
+      expect(body)
         .to.have.property('message')
         .to.be.a('String');
-      expect(res.body)
+      expect(body)
         .to.have.property('status')
         .to.eql('error');
-      expect(res.body.message).to.eql(
-        'Your request could not be processed at this time. Kindly try again later.',
-      );
+      expect(body.message).to.eql('validation error');
+      expect(body.errors[0]).to.contain('password');
     });
   });
 });
